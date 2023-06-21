@@ -26,7 +26,7 @@ class Client
         $this->email = $email;
         $this->adresse = $adresse;
         $this->quotasID = $quotasID;
-        $this->db_name = "";
+        $this->db_name = $nomSociete."_DB";
         $this->password = $password;
     }
 
@@ -148,6 +148,13 @@ class Client
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getClientByNom_utilisateur($nom_utilisateur){
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare('SELECT * FROM clients WHERE nom_utilisateur=:nom_utilisateur');
+        $stmt->execute(['nom_utilisateur'=>$nom_utilisateur]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function getClientById($id)
     {
         // Retrieve a client from the database based on the given ID and return the result
@@ -163,8 +170,8 @@ class Client
         // Save a new client to the database
         // Example implementation using PDO:
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare('INSERT INTO clients (nom, prenom, nom_societe, numero, nom_utilisateur, email, password, adresse, quotasID) 
-                               VALUES (:nom, :prenom, :nomSociete, :numero, :nomUtilisateur, :email,:password, :adresse, :quotasID)');
+        $stmt = $pdo->prepare('INSERT INTO clients (nom, prenom, nom_societe, numero, nom_utilisateur, email, password, adresse, quotasID, db_name) 
+                               VALUES (:nom, :prenom, :nomSociete, :numero, :nomUtilisateur, :email,:password, :adresse, :quotasID, :db_name)');
         $stmt->execute([
             'nom' => $client->getNom(),
             'prenom' => $client->getPrenom(),
@@ -175,6 +182,7 @@ class Client
             'adresse' => $client->getAdresse(),
             'password' => $client->getpassword(),
             'quotasID' => $client->getQuotasID(),
+            'db_name' => $client->getDbName()
         ]);
 
 

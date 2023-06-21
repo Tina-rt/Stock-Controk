@@ -9,5 +9,8 @@
     <h1>Page d'accueil</h1>
     <a href="clients/inscription">Inscription client</a>
     <a href="clients/login">se connecter</a>
+
+    <h2>Lucia</h2>
+    
 </body>
 </html>

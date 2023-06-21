@@ -2,17 +2,7 @@
 require_once 'models/Client.php';
 require_once 'models/Quotas.php';
 
-session_start();
-if (isset($_POST['submit_inscription'])){
-    $new_client = new Client(0, $_POST['nom'], $_POST['prenom'], $_POST['nom_societe'], $_POST['numero'], $_POST['nom_utilisateur'], $_POST['email'], $_POST['adresse'], $_POST['quotasID'], sha1($_POST['password']));
-    echo $new_client;
-    // Client::saveClient($new_client);
-    // Database::newDatabaseClient('essai_21');
 
-    $new_quota = new Quotas(0, 'VIP', 3000);
-    $new_quota->createQuota();
-
-}
 
 ?>
 

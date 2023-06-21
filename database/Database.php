@@ -21,7 +21,10 @@ class Database
 
     public static function newDatabaseClient($dbname)
     {
-        $db = new PDO("mysql:host=127.0.0.1;dbname=" . $dbname . ";charset=utf8mb4", 'root', '');
+        $db = new PDO("mysql:host=127.0.0.1;charset=utf8mb4", 'root', '');
+        
+        $db->exec("CREATE DATABASE ".$dbname);
+        $db = new PDO("mysql:host=127.0.0.1;dbname=".$dbname.";charset=utf8mb4", 'root', '');
 
         $select = $db->exec(file_get_contents('database/sql_file/client_database.sql'));
         
